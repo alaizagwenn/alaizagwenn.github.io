@@ -5,217 +5,467 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Alaiza Gwenn | Portfolio</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --sage: #CAD2C5;
+      --sage-2: #84A98C;
+      --accent: #52796F;
+      --dark: #2F3E46;
+    }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      color: #2F3E46;
+      overflow-x: hidden;
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 70% 40%, rgba(82,121,111,0.25) 0%, rgba(47,62,70,0) 60%),
+        radial-gradient(ellipse at 20% 80%, rgba(201,168,76,0.10) 0%, rgba(47,62,70,0) 50%),
+        #2F3E46;
+      background-attachment: fixed;
+    }
+
+    .global-bg {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse at 70% 40%, rgba(82,121,111,0.28) 0%, rgba(47,62,70,0) 60%),
+        radial-gradient(ellipse at 20% 80%, rgba(201,168,76,0.10) 0%, rgba(47,62,70,0) 50%);
+    }
+    .global-lines {
+      position: fixed; inset: 0; z-index: 0;
+      opacity: 0.07; pointer-events: none; overflow: hidden;
+    }
+    .global-lines svg { width: 100%; height: 100%; }
+
+
+
+    /* ── NAVBAR ── */
+    .navbar-glass {
+      background: rgba(47,62,70,0.4) !important;
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .navbar-glass .nav-link {
+      color: var(--sage) !important; font-weight: 500;
+      transition: color 0.25s ease, transform 0.25s ease;
+      border-radius: 999px; padding: 0.45rem 0.75rem;
+    }
+    .navbar-glass .nav-link:hover { color: #ffffff !important; transform: translateY(-1px); }
+    .logo-circle {
+      width: 40px; height: 40px; border-radius: 999px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.22); background: rgba(255,255,255,0.12);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+    }
+    .logo-circle img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ── SECTION PANEL ── */
+    .section-panel {
+      background: rgba(255,255,255,0.15);
+      border-radius: 20px; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+      margin: 60px auto; width: 85%; max-width: 1000px;
+      padding: 60px 30px; text-align: center; color: white;
+      position: relative; z-index: 2;
+    }
+
+    /* ── HERO ── */
+    .hero-section {
+      min-height: 100vh; display: flex; align-items: center;
+      padding: 120px 0 90px; text-align: left;
+      position: relative; overflow: hidden; color: #ffffff;
+      z-index: 2;
+    }
+    .hero-kicker {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent); background: rgba(132,169,140,0.18);
+      border: 1px solid rgba(132,169,140,0.35); border-radius: 999px;
+      padding: 10px 14px; backdrop-filter: blur(8px);
+    }
+    .hero-h1 { font-size: clamp(2.6rem, 4.6vw, 4.0rem); line-height: 1.12; margin-bottom: 22px; font-weight: 800; }
+    .hero-h1 em { font-style: italic; color: var(--sage); }
+    .hero-sub { font-size: 1rem; color: rgba(255,255,255,0.65); line-height: 1.75; max-width: 460px; margin-bottom: 28px; }
+    .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+
+    .hero-btn-primary {
+      background: var(--sage-2); color: var(--dark); padding: 14px 28px;
+      border-radius: 999px; font-weight: 800; text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      box-shadow: 0 14px 28px rgba(82,121,111,0.20);
+    }
+    .hero-btn-primary:hover { background: #a8d5b5; transform: translateY(-2px); box-shadow: 0 22px 50px rgba(82,121,111,0.30); }
+    .hero-btn-outline {
+      border: 1px solid rgba(255,255,255,0.30); color: rgba(255,255,255,0.9);
+      padding: 14px 28px; border-radius: 999px; font-weight: 700; text-decoration: none;
+      transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+      background: rgba(255,255,255,0.04);
+    }
+    .hero-btn-outline:hover { border-color: var(--sage-2); background: rgba(76,175,120,0.08); transform: translateY(-2px); }
+
+    .hero-image-wrap {
+      position: relative; width: 100%;
+      display: flex; align-items: center; justify-content: center; min-height: 520px;
+    }
+    .hero-stats {
+      position: absolute; top: -20px; left: -50px;
+      background: rgba(47,62,70,0.85); backdrop-filter: blur(12px);
+      border: 1px solid rgba(132,169,140,0.25); border-radius: 12px; padding: 16px 20px; z-index: 2;
+    }
+    .hero-stats-num   { font-size: 1.8rem; color: var(--sage-2); line-height: 1; font-weight: 800; }
+    .hero-stats-label { margin-top: 4px; font-size: 0.72rem; color: rgba(255,255,255,0.55); letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; }
+
+    .hero-img-frame {
+      width: 380px; height: 460px; border-radius: 12px; overflow: hidden;
+      position: relative; border: 1px solid rgba(132,169,140,0.25);
+      background: rgba(255,255,255,0.06); box-shadow: 0 22px 80px rgba(0,0,0,0.20); z-index: 1;
+    }
+    .hero-img-frame img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: saturate(0.85) brightness(0.92);
+      transition: filter 0.4s ease, transform 0.6s ease; display: block;
+    }
+    .hero-img-frame:hover img { filter: saturate(1) brightness(1); transform: scale(1.04); }
+    .hero-img-frame::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(160deg, transparent 50%, rgba(47,62,70,0.6) 100%); pointer-events: none;
+    }
+
+    .hero-deco-ring {
+      position: absolute; width: 120px; height: 120px;
+      border: 1px solid rgba(132,169,140,0.35); border-radius: 50%;
+      bottom: -30px; right: -30px;
+      z-index: 0;
+    }
+    .hero-deco-ring::before {
+      content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      width: 60%; height: 60%; border-radius: 50%; border: 1px solid rgba(201,168,76,0.30);
+    }
+
+    .scroll-indicator {
+      position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: rgba(255,255,255,0.4); font-size: 0.7rem;
+      letter-spacing: 0.1em; text-transform: uppercase; z-index: 3; pointer-events: none;
+    }
+    .scroll-line {
+      width: 1px; height: 50px;
+      background: linear-gradient(to bottom, rgba(132,169,140,0.7), transparent);
+    }
+
+    /* ── SKILLS ── */
+    .skill-pill {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 10px 16px; border-radius: 999px;
+      border: 1px solid rgba(121, 174, 161, 0.28); background: rgba(152, 218, 202, 0.18);
+      color: white; font-weight: 600; user-select: none;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+    .skill-pill:hover { transform: translateY(-2px); background: rgba(82,121,111,0.24); }
+
+    /* ── PROJECT CARDS ── */
+    .project-link { text-decoration: none; color: inherit; }
+    .project-card {
+      background: rgba(255,255,255,0.3); border-radius: 15px; overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.22);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; height: 100%;
+    }
+    .project-card:hover { transform: translateY(-7px); box-shadow: 0 12px 30px rgba(0,0,0,0.2); border-color: rgba(255,255,255,0.35); }
+    .project-img {
+      width: calc(100% - 40px); height: 220px; object-fit: cover; display: block;
+      border-radius: 10px; margin: 20px auto; transition: transform 0.35s ease;
+    }
+    .project-card:hover .project-img { transform: scale(1.04); }
+    .project-body { padding: 0 20px 20px 20px; }
+
+    .projects-scroll { overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory; padding-bottom: 10px; }
+    .projects-scroll::-webkit-scrollbar { height: 8px; }
+    .projects-scroll::-webkit-scrollbar-thumb { background: rgba(47,62,70,0.25); border-radius: 999px; }
+    .projects-row { display: flex; gap: 24px; align-items: stretch; padding: 4px 6px; min-width: 100%; }
+    .project-slide { flex: 0 0 auto; width: 340px; scroll-snap-align: start; }
+
+    .project-badge {
+      display: inline-block; padding: 8px 12px; border-radius: 999px;
+      background: rgba(82,121,111,0.18); border: 1px solid rgba(82,121,111,0.28);
+      color: var(--dark); font-weight: 600; font-size: 0.9rem;
+    }
+    .btn-soft {
+      background: rgba(152, 218, 202, 0.18); border: 1px solid rgba(202,210,197,0.45);
+      color: white; border-radius: 999px; font-weight: 800; padding: 12px 18px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      text-decoration: none; display: inline-block;
+    }
+    .btn-soft:hover { transform: translateY(-2px); background: rgba(202,210,197,0.35); box-shadow: 0 10px 20px rgba(0,0,0,0.18); color: white; }
+
+    /* ── CONTACT ── */
+.contact-link {
+  color: #d8e9e4;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.contact-link:hover {
+  text-decoration: underline;
+  color: #d8e9e4;
+}
+
+.site-footer {
+  padding: 20px 0;
+  text-align: center;
+}
+
+.footer-social a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #52796f;
+}
+
+.footer-social a:hover {
+  color: #354f52;
+}
+
+    /* ── FOOTER ── */
+    .site-footer {
+      background: rgba(47,62,70,0.65); backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255,255,255,0.10); color: var(--sage);
+      font-size: 0.9rem; letter-spacing: 1px; padding: 14px 0; position: relative; z-index: 2;
+    }
+    .footer-social a {
+      color: var(--sage); text-decoration: none; transition: color 0.2s ease, transform 0.2s ease;
+      display: inline-flex; padding: 6px 10px; border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.06);
+    }
+    .footer-social a:hover { color: #ffffff; transform: translateY(-1px); }
+
+    @media (max-width: 991px) {
+      .hero-section { padding: 100px 0 70px; text-align: center; }
+      .hero-sub { max-width: 100%; }
+      .hero-image-wrap { margin-top: 40px; min-height: 460px; }
+      .hero-img-frame { width: 340px; height: 420px; }
+      .hero-stats { left: 0; }
+      .hero-cta { justify-content: center; }
+    }
+    @media (max-width: 420px) { .project-slide { width: 300px; } }
+  </style>
 </head>
-<body style="
-  font-family: 'Poppins', sans-serif;
-  margin: 0;
-  color: #2F3E46;
-  background: linear-gradient(120deg, #CAD2C5, #84A98C, #52796F);
-  background-size: cover;
-">
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="
-  background: rgba(47, 62, 70, 0.4);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255,255,255,0.2);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-">
-  <div class="container">
-    <a class="navbar-brand" href="#">
-      <img src="logo_name.png" alt="Logo" style="height:40px; width:auto;">
-    </a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+<body>
 
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item"><a class="nav-link" href="#home" style="color:#CAD2C5;">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="#about" style="color:#CAD2C5;">About</a></li>
-        <li class="nav-item"><a class="nav-link" href="#portfolio" style="color:#CAD2C5;">Portfolio</a></li>
-        <li class="nav-item"><a class="nav-link" href="#contact" style="color:#CAD2C5;">Contact</a></li>
-      </ul>
-    </div>
+  <!-- Global overlays -->
+  <div class="global-bg" aria-hidden="true"></div>
+  <div class="global-lines" aria-hidden="true">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+      <line x1="0" y1="200" x2="1440" y2="200" stroke="white" stroke-width="0.5"/>
+      <line x1="0" y1="500" x2="1440" y2="500" stroke="white" stroke-width="0.5"/>
+      <line x1="300" y1="0" x2="300" y2="900" stroke="white" stroke-width="0.5"/>
+      <line x1="800" y1="0" x2="800" y2="900" stroke="white" stroke-width="0.5"/>
+      <line x1="1200" y1="0" x2="1200" y2="900" stroke="white" stroke-width="0.5"/>
+      <circle cx="300" cy="200" r="4" fill="white"/>
+      <circle cx="800" cy="200" r="4" fill="white"/>
+      <circle cx="1200" cy="500" r="4" fill="white"/>
+    </svg>
   </div>
-</nav>
 
-<!-- Home Section -->
-<section id="home" style="
-  color:#2F3E46;
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:left;
-  padding:100px 0;
-">
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-md-6">
-        <h1 class="display-4 fw-bold">Hi, I'm <span style="color:#354F52;">Alaiza Gwenn</span></h1>
-        <p class="lead pt-3">Welcome to my personal portfolio!</p>    
-        <p class="lead">I’m a BS Information Technology student who enjoys turning ideas into reality through code.</p>  
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-glass">
+    <div class="container">
+      <a class="navbar-brand" href="#home" aria-label="Home">
+        <div class="logo-circle" aria-hidden="true">
+          <img src="logo_name.png" alt="Alaiza Gwenn logo">
+        </div>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
       </div>
+    </div>
+  </nav>
 
-      <div class="col-md-6 text-center">
-        <div style="
-          background: rgba(255, 255, 255, 0.2);
-          border-radius: 20px;
-          padding: 20px;
-          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
-          display: inline-block;
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
-        ">
-          <img src="id_pic.png" alt="Alaiza Gwenn" style="
-            width: 280px;
-            height: auto;
-            border-radius: 15px;
-          ">
+  <!-- Home Section -->
+  <section id="home" class="hero-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <div class="hero-kicker">BS Information Technology</div>
+          <h1 class="hero-h1 fw-bold mt-4">Hi, I'm<br/><em>Alaiza Gwenn</em></h1>
+          <p class="hero-sub">An IT student at PUP Sto. Tomas who loves turning ideas into reality through code — crafting experiences that are both functional and meaningful.</p>
+          <div class="hero-cta">
+            <a href="#portfolio" class="hero-btn-primary">View My Work</a>
+            <a href="#contact" class="hero-btn-outline">Let's Connect</a>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="hero-image-wrap">
+          
+            <div class="hero-img-frame">
+              <img src="id_pic.png" alt="Alaiza Gwenn">
+            </div>
+            <div class="hero-deco-ring" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="section-panel">
+    <div class="container">
+      <h2 style="font-weight:700;"> Me</h2>
+      <p class="mt-3">I'm an Information Technology student at the Polytechnic University of the Philippines - Sto. Tomas Campus.</p>
+      <div class="mt-4">
+        <h5 class="fw-semibold mb-3">Skills</h5>
+        <div class="d-flex flex-wrap justify-content-center gap-2">
+          <span class="skill-pill">HTML</span>
+          <span class="skill-pill">CSS</span>
+          <span class="skill-pill">JavaScript</span>
+          <span class="skill-pill">Java</span>
+          <span class="skill-pill">PHP</span>
+          <span class="skill-pill">SQL</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio Section -->
+  <section id="portfolio" class="section-panel">
+    <div class="container">
+      <h2 style="font-weight:700;">My Projects</h2>
+      <div class="projects-scroll mt-4" aria-label="Projects (scroll left and right)">
+        <div class="projects-row">
+
+          <div class="project-slide">
+            <a href="https://alaizagwenn.github.io/ILIFE-T20s-Robot-Vacuum/" target="_blank" class="project-link">
+              <div class="project-card">
+                <img src="images/robot.png" alt="ILIFE T20s Robot Vacuum" class="project-img">
+                <div class="project-body">
+                  <h5 class="fw-bold mb-2">ILIFE T20s Robot Vacuum</h5>
+                  <p>Cleaner, Smarter, Easier — Entrust all cleaning to us.</p>
+                  <div class="mt-3 d-flex flex-wrap gap-2">
+                    <span class="project-badge">HTML</span>
+                    <span class="project-badge">CSS</span>
+                    <span class="project-badge">JavaScript</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <div class="project-slide">
+            <a href="https://alaizagwenn.github.io/Puerto-Galera/" target="_blank" class="project-link">
+              <div class="project-card">
+                <img src="images/bgpic.jpg" alt="Tara! Gala Tayo sa Puerto Galera" class="project-img">
+                <div class="project-body">
+                  <h5 class="fw-bold mb-2">Tara! Gala Tayo sa Puerto Galera</h5>
+                  <p>Discover pristine beaches, vibrant marine life, and unforgettable adventures in this tropical paradise.</p>
+                  <div class="mt-3 d-flex flex-wrap gap-2">
+                    <span class="project-badge">Bootstrap</span>
+                    <span class="project-badge">HTML</span>
+                    <span class="project-badge">CSS</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <div class="project-slide">
+            <a href="https://alaizagwenn.github.io/BakerGuide-API/" target="_blank" class="project-link">
+              <div class="project-card">
+                <img src="images/bakepic3.jpg" alt="BakerGuide-API" class="project-img">
+                <div class="project-body">
+                  <h5 class="fw-bold mb-2">BakerGuide-API</h5>
+                  <p>A clean, practical API experience for exploring baking recipes and categories.</p>
+                  <div class="mt-3 d-flex flex-wrap gap-2">
+                    <span class="project-badge">API</span>
+                    <span class="project-badge">JavaScript</span>
+                    <span class="project-badge">HTML</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <div class="project-slide">
+            <a href="https://alaizagwenn.github.io/Gallery/" target="_blank" class="project-link">
+              <div class="project-card">
+                <img src="images/pic1.jpg" alt="Memory Gallery" class="project-img">
+                <div class="project-body">
+                  <h5 class="fw-bold mb-2">Memory Gallery</h5>
+                  <p>A minimalist gallery that organizes photos into a smooth, story-like experience.</p>
+                  <div class="mt-3 d-flex flex-wrap gap-2">
+                    <span class="project-badge">JavaScript</span>
+                    <span class="project-badge">HTML</span>
+                    <span class="project-badge">CSS</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <a href="activities.html" class="btn-soft btn-lg">See All Projects</a>
+      </div>
+    </div>
+  </section>
+
+ <!-- Contact Section -->
+<section id="contact" class="section-panel">
+  <div class="container text-center">
+    <h2 style="font-weight:700;">Contact Me</h2>
+    <p class="mt-2 mb-2">Let's connect! Feel free to reach out to me.</p>
+
+    <div class="row justify-content-center mt-2">
+      <div class="col-lg-6">
+        <div class="p-3" style="border-radius: 12px; background: rgba(82,121,111,0.05);">
+
+          <h5 class="fw-semibold mb-1">Email</h5>
+          <a href="mailto:angelesalaizagwenn@gmail.com" class="contact-link d-block mb-2">
+            angelesalaizagwenn@gmail.com
+          </a>
+
+          <hr class="my-2" style="border-color: rgba(82,121,111,0.25);">
+
+          <h5 class="fw-semibold mb-1">GitHub</h5>
+          <a href="https://github.com/alaizagwenn" target="_blank" class="contact-link">
+            github.com/alaizagwenn
+          </a>
+
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- About Section -->
-<section id="about" style="
-  background: rgba(255,255,255,0.2);
-  border-radius:20px;
-  margin:60px auto;
-  width:85%;
-  max-width:1000px;
-  padding:60px 30px;
-  text-align:center;
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
-">
-  <div class="container">
-    <h2 style="font-weight:700;">About Me</h2>
-    <p class="mt-3"> I’m an Information Technology student at the Polytechnic University of the Philippines - Sto. Tomas Campus.</p>
-  </div>
-</section>
-
-<!-- ✅ My Projects (Activities) -->
-<section id="portfolio" style="
-  background: rgba(255,255,255,0.2);
-  border-radius: 20px;
-  margin: 60px auto;
-  width: 85%;
-  max-width: 1000px;
-  padding: 60px 30px;
-  text-align: center;
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
-">
-  <div class="container">
-    <h2 style="font-weight:700;">My Projects</h2>
-    <div class="row justify-content-center mt-4">
-
-      <!-- 🧹 Project 1: ILIFE T20s Robot Vacuum -->
-      <div class="col-md-5 mb-4">
-        <a href="https://alaizagwenn.github.io/ILIFE-T20s-Robot-Vacuum/" 
-           target="_blank" 
-           style="text-decoration:none; color:inherit;">
-          <div style="
-            background: rgba(255,255,255,0.3);
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-          " 
-          onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 20px rgba(0,0,0,0.2)';" 
-          onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.1)';">
-            <img src="images/robot.png" alt="ILIFE T20s Robot Vacuum" style="
-              width: 100%;
-              height: 220px;
-              object-fit: cover;
-              border-radius: 10px;
-            ">
-            <h5 class="mt-3 fw-bold">ILIFE T20s Robot Vacuum</h5>
-            <p>Cleaner, Smarter, Easier — Entrust all cleaning to us.</p>
-          </div>
-        </a>
-      </div>
-
-      <!-- 🌴 Project 2: Puerto Galera -->
-      <div class="col-md-5 mb-4">
-        <a href="https://alaizagwenn.github.io/Puerto-Galera/" 
-           target="_blank" 
-           style="text-decoration:none; color:inherit;">
-          <div style="
-            background: rgba(255,255,255,0.3);
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-          " 
-          onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 20px rgba(0,0,0,0.2)';" 
-          onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.1)';">
-            <img src="images/bgpic.jpg" alt="Tara! Gala Tayo sa Puerto Galera" style="
-              width: 100%;
-              height: 220px;
-              object-fit: cover;
-              border-radius: 10px;
-            ">
-            <h5 class="mt-3 fw-bold">Tara! Gala Tayo sa Puerto Galera</h5>
-            <p>Discover pristine beaches, vibrant marine life, and unforgettable adventures in this tropical paradise.</p>
-          </div>
-        </a>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-
-<!-- Contact Section -->
-<section id="contact" style="
-  background: rgba(255,255,255,0.2);
-  border-radius:20px;
-  margin:60px auto;
-  width:85%;
-  max-width:1000px;
-  padding:60px 30px;
-  text-align:center;
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
-">
-  <div class="container">
-    <h2 style="font-weight:700;">Contact Me</h2>
-    <p class="mt-3">Let’s connect! Feel free to reach out to me through any of the platforms below.</p>
-    <div class="contact-info mt-4">
-      <p><a href="mailto:alaizagwenn@gmail.com" style="color:#CAD2C5; text-decoration:none;">📧 alaizagwenn@gmail.com</a></p>
-      <p><a href="#" style="color:#CAD2C5; text-decoration:none;">🌐 LinkedIn | GitHub | Facebook</a></p>
-    </div>
-  </div>
-</section>
-
 <!-- Footer -->
-<footer style="
-  background-color:#2F3E46;
-  color:#CAD2C5;
-  text-align:center;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:40px; 
-  font-size:0.9rem;
-  letter-spacing:1px;
-">
-  <p style="margin:0;">&copy; 2025 Alaiza Gwenn. All Rights Reserved.</p>
+<footer class="site-footer">
+  <div class="container text-center">
+    <p class="mb-2">&copy; 2025 Alaiza Gwenn. All Rights Reserved.</p>
+
+    <div class="footer-social">
+      <a href="https://github.com/alaizagwenn" target="_blank">GitHub</a>
+    </div>
+  </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-
